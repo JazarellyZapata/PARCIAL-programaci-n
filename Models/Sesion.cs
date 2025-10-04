@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PARCIAL_programaci_n.Data; // RESUELVE ApplicationUser
 
-namespace PARCIAL_programaci_n.Models
+namespace PARCIAL_programaci_n.Models 
 {
     public class Sesion
     {

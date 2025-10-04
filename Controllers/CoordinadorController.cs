@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; // Para Include, ToListAsync, CountAsync
-using PARCIAL_programaci_n.Data;    // Para ApplicationDbContext
-using PARCIAL_programaci_n.Models;   // Para Curso, Sesion, Asistencia
-using PARCIAL_programaci_n.ViewModels; // Para AsistenciaViewModel
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore; // RESUELVE .Include, ToListAsync
+using PARCIAL_programaci_n.Data;    // RESUELVE ApplicationDbContext
+using PARCIAL_programaci_n.Models;   // RESUELVE Curso, Sesion, Asistencia
+using PARCIAL_programaci_n.ViewModels; // RESUELVE AsistenciaViewModel
 namespace PARCIAL_programaci_n.Controllers
 {
     // Solo accesible por usuarios con el rol "Coordinador"
