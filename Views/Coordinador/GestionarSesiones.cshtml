@@ -1,0 +1,58 @@
+@model List<PARCIAL_programaci_n.Models.Sesion>
+@{
+    ViewData["Title"] = $"Sesiones de {ViewBag.CursoNombre}";
+}
+
+<h1>Sesiones de @ViewBag.CursoNombre (@ViewBag.CursoId)</h1>
+
+<h2>Crear Nueva Sesión</h2>
+<form asp-action="CrearSesion" method="post" class="row g-3 mb-4">
+    <input type="hidden" name="cursoId" value="@ViewBag.CursoId" />
+    <div class="col-md-3">
+        <label for="fechaSesion" class="form-label">Fecha:</label>
+        <input type="date" name="fechaSesion" id="fechaSesion" class="form-control" required />
+    </div>
+    <div class="col-md-6">
+        <label for="tema" class="form-label">Tema:</label>
+        <input type="text" name="tema" id="tema" class="form-control" placeholder="Ej: Introducción a C# y variables" />
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-success w-100">Crear Sesión</button>
+    </div>
+</form>
+
+<hr />
+
+<h2>Sesiones Registradas</h2>
+@if (Model.Any())
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tema</th>
+                <th>Estudiantes Registrados</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FechaSesion.ToShortDateString()</td>
+                    <td>@item.Tema</td>
+                    <td>@(item.Asistencias?.Count ?? 0)</td>
+                    <td>
+                        <a asp-action="TomarAsistencia" asp-route-id="@ViewBag.CursoId" asp-route-sesionId="@item.Id" class="btn btn-sm btn-primary">
+                            Tomar Asistencia
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">No hay sesiones registradas para este curso.</div>
+}

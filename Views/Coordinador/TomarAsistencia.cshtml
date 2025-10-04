@@ -1,0 +1,43 @@
+@model List<PARCIAL_programaci_n.ViewModels.AsistenciaViewModel>
+@{
+    ViewData["Title"] = $"Asistencia: {ViewBag.CursoNombre} ({ViewBag.SesionFecha})";
+}
+
+<h1>Asistencia: @ViewBag.CursoNombre</h1>
+<h2>Sesión del @ViewBag.SesionFecha</h2>
+
+<form asp-action="GuardarAsistencia" method="post">
+    <input type="hidden" name="sesionId" value="@ViewBag.SesionId" />
+    <input type="hidden" name="cursoId" value="@ViewBag.CursoId" />
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Estudiante</th>
+                <th>Asistió</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model[i].NombreCompleto)
+                        <input type="hidden" asp-for="@Model[i].UsuarioId" />
+                        <input type="hidden" asp-for="@Model[i].NombreCompleto" />
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            <input type="checkbox" asp-for="@Model[i].Asistio" class="form-check-input" />
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Guardar Asistencia</button>
+        <a asp-action="GestionarSesiones" asp-route-id="@ViewBag.CursoId" class="btn btn-secondary">Cancelar y Volver</a>
+    </div>
+</form>
