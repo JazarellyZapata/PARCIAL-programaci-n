@@ -1,31 +1,47 @@
-html {
-  font-size: 14px;
-}
+/* --- Estilos Personalizados para Login y Register (P2) --- */
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* 1. Fondo (Opcional, si quieres un color suave en el cuerpo de toda la página) */
 body {
-  margin-bottom: 60px;
+    background-color: #f5f4f4; /* Rosa muy pálido, casi blanco */
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* 2. Contenedor principal de Identity (Login/Register) */
+/* Centra el contenedor completo en la pantalla */
+.col-md-4.col-md-offset-2 {
+    /* El selector por defecto de las plantillas de Identity UI es .col-md-4 */
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* Fondo blanco para el recuadro */
+    border: 2px solid #fafafa; /* Borde rosa claro */
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* 3. Estilos específicos para botones y títulos (color rosa) */
+.col-md-4.col-md-offset-2 h2 {
+    color: #e91e63; /* Rosa fuerte */
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* 4. Estilo para el botón principal (Login/Register) */
+.col-md-4.col-md-offset-2 .btn-primary {
+    background-color: #e91e63 !important; /* Rosa fuerte */
+    border-color: #e91e63 !important;
+    color: white;
+    width: 100%;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.col-md-4.col-md-offset-2 .btn-primary:hover {
+    background-color: #c2185b !important; /* Rosa más oscuro al pasar el ratón */
+    border-color: #c2185b !important;
+}
+
+/* 5. Estilo para los enlaces (Register, Forgot password, etc.) */
+.col-md-4.col-md-offset-2 a {
+    color: #e91e63;
 }

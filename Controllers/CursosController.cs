@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PARCIAL_PROGRAMACI_N.Data;
-using PARCIAL_PROGRAMACI_N.Models;
+using PARCIAL_programaci_n.Data; // Usando la convención de minúsculas
+using PARCIAL_programaci_n.Models; 
 
 // Solo el rol Coordinador puede acceder a este controlador (P2)
 [Authorize(Roles = "Coordinador")]
@@ -18,7 +18,6 @@ public class CursosController : Controller
     // GET: /Cursos (P2)
     public async Task<IActionResult> Index()
     {
-        // Muestra todos los cursos
         return View(await _context.Cursos.ToListAsync());
     }
 
@@ -45,8 +44,6 @@ public class CursosController : Controller
             ModelState.AddModelError("Codigo", "Ya existe un curso con este código.");
         }
         
-        // El resto de validaciones (Required, Range) se manejan con DataAnnotations.
-
         if (ModelState.IsValid)
         {
             _context.Add(curso);
@@ -109,7 +106,6 @@ public class CursosController : Controller
     }
 
     // POST: /Cursos/ToggleStatus/5 (P2)
-    // Cambia el estado Activo/Inactivo
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ToggleStatus(int id)

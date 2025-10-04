@@ -1,4 +1,4 @@
-@model PARCIAL_PROGRAMACI_N.Models.Curso
+@model PARCIAL_programaci_n.Models.Curso
 
 <div class="row">
     <div class="col-md-6">
@@ -44,7 +44,6 @@
     <div class="col-md-6">
         <div class="form-group mb-3">
             <label asp-for="HorarioInicio" class="control-label"></label>
-            @* Usamos type="time" para el TimeOnly *@
             <input asp-for="HorarioInicio" type="time" class="form-control" /> 
             <span asp-validation-for="HorarioInicio" class="text-danger"></span>
         </div>

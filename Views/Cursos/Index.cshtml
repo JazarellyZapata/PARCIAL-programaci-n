@@ -1,4 +1,4 @@
-@model IEnumerable<PARCIAL_PROGRAMACI_N.Models.Curso>
+@model IEnumerable<PARCIAL_programaci_n.Models.Curso>
 
 @{
     ViewData["Title"] = "Administración de Cursos";
@@ -38,7 +38,6 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        string rowClass = item.Activo ? "" : "table-danger";
                         <tr>
                             <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
                             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>

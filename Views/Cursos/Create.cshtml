@@ -1,0 +1,25 @@
+@model PARCIAL_programaci_n.Models.Curso
+
+@{
+    ViewData["Title"] = "Crear Curso";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="card shadow p-4">
+    <form asp-action="Create">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
+        <partial name="_CursoForm" model="Model" />
+
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Guardar
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a la Lista
+            </a>
+        </div>
+    </form>
+</div>
