@@ -1,0 +1,60 @@
+@model IEnumerable<PARCIAL_programaci_n.Models.Curso>
+
+@{
+    ViewData["Title"] = "Catálogo de Cursos";
+    var cursosMatriculados = ViewBag.CursosMatriculados as List<int> ?? new List<int>();
+}
+
+<h1>Catálogo de Cursos Disponibles</h1>
+
+@if (TempData["StatusMessage"] != null)
+{
+    <div class="alert alert-info">@TempData["StatusMessage"]</div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Codigo)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Creditos)</th>
+            <th>@Html.DisplayNameFor(model => model.CupoMaximo)</th>
+            <th>Matriculados</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            // Calcula el número de estudiantes matriculados
+            var matriculadosCount = item.Matriculas?.Count ?? 0;
+            var isFull = matriculadosCount >= item.CupoMaximo;
+            var isMatriculado = cursosMatriculados.Contains(item.Id);
+
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Creditos)</td>
+                <td>@Html.DisplayFor(modelItem => item.CupoMaximo)</td>
+                <td>@matriculadosCount</td>
+                <td>
+                    @if (isMatriculado)
+                    {
+                        <span class="badge bg-success">Inscrito</span>
+                    }
+                    else if (isFull)
+                    {
+                        <span class="badge bg-danger">Cupo Lleno</span>
+                    }
+                    else
+                    {
+                        <form asp-controller="Estudiante" asp-action="Matricularse" method="post">
+                            <input type="hidden" name="cursoId" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-primary">Matricularme</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

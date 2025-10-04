@@ -1,34 +1,56 @@
-@model List<PARCIAL_programaci_n.ViewModels.AsistenciaViewModel>
+@* 1. CORRECCIÓN DEL NAMESPACE: Aseguramos el namespace correcto *@
+@model IEnumerable<PARCIAL_programaci_n.Models.ViewModels.AsistenciaViewModel>
+
 @{
-    ViewData["Title"] = $"Asistencia: {ViewBag.CursoNombre} ({ViewBag.SesionFecha})";
+    ViewData["Title"] = "Tomar Asistencia";
+    // Valores pasados desde el CoordinadorController
+    var sesionId = ViewData["SesionId"];
+    var cursoNombre = ViewData["CursoNombre"];
+    var sesionTema = ViewData["SesionTema"];
+    var cursoId = ViewData["CursoId"]; // Necesitamos esto para volver a Gestión de Sesiones
 }
 
-<h1>Asistencia: @ViewBag.CursoNombre</h1>
-<h2>Sesión del @ViewBag.SesionFecha</h2>
+<h1>Tomar Asistencia</h1>
+<h3>Curso: @cursoNombre</h3>
+<h4>Sesión: @sesionTema</h4>
 
-<form asp-action="GuardarAsistencia" method="post">
-    <input type="hidden" name="sesionId" value="@ViewBag.SesionId" />
-    <input type="hidden" name="cursoId" value="@ViewBag.CursoId" />
+<hr />
 
-    <table class="table table-bordered table-striped">
+    @* 2. CORRECCIÓN DEL FORMULARIO: Uso correcto de form tag helper *@
+    <form asp-controller="Coordinador" asp-action="GuardarAsistencia" method="post">
+    
+    @* Campo oculto para enviar el ID de la sesión *@
+    <input type="hidden" name="sesionId" value="@sesionId" />
+
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Estudiante</th>
-                <th>Asistió</th>
+                <th>@Html.DisplayNameFor(model => model.NombreCompleto)</th>
+                <th>@Html.DisplayNameFor(model => model.Presente)</th>
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < Model.Count; i++)
+            @* 3. CORRECCIÓN DEL BUCLE: Usamos 'for' para asegurar que el índice 'i' exista para los inputs *@
+            @for (int i = 0; i < Model.Count(); i++)
             {
+                var estudiante = Model.ElementAt(i);
+                
                 <tr>
+                    <td>@estudiante.NombreCompleto</td>
                     <td>
-                        @Html.DisplayFor(model => model[i].NombreCompleto)
-                        <input type="hidden" asp-for="@Model[i].UsuarioId" />
-                        <input type="hidden" asp-for="@Model[i].NombreCompleto" />
-                    </td>
-                    <td>
+                        @* Campo oculto para enviar el ID del usuario *@
+                        <input type="hidden" name="asistencias[@i].UsuarioId" value="@estudiante.UsuarioId" />
+                        
                         <div class="form-check">
-                            <input type="checkbox" asp-for="@Model[i].Asistio" class="form-check-input" />
+                            @* Truco de ASP.NET Core: Input oculto 'false' para enviar el valor si el checkbox no está marcado *@
+                            <input type="hidden" name="asistencias[@i].Presente" value="false" /> 
+                            
+                            @* El checkbox real (si está marcado, envía 'true') *@
+                            <input type="checkbox" 
+                                   name="asistencias[@i].Presente" 
+                                   value="true" 
+                                   @(estudiante.Presente ? "checked" : "") 
+                                   class="form-check-input" />
                         </div>
                     </td>
                 </tr>
@@ -37,7 +59,9 @@
     </table>
 
     <div class="mt-4">
-        <button type="submit" class="btn btn-success">Guardar Asistencia</button>
-        <a asp-action="GestionarSesiones" asp-route-id="@ViewBag.CursoId" class="btn btn-secondary">Cancelar y Volver</a>
+        <button type="submit" class="btn btn-primary">Guardar Asistencia</button>
+        
+        @* Botón para volver al listado de sesiones *@
+        <a asp-action="GestionarSesiones" asp-route-id="@cursoId" class="btn btn-secondary">Cancelar y Volver</a>
     </div>
 </form>

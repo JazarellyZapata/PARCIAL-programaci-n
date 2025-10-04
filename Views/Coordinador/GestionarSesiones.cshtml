@@ -1,58 +1,87 @@
-@model List<PARCIAL_programaci_n.Models.Sesion>
+@model PARCIAL_programaci_n.Models.Curso
+
 @{
-    ViewData["Title"] = $"Sesiones de {ViewBag.CursoNombre}";
+    ViewData["Title"] = $"Gestión de Sesiones: {Model.Nombre}";
+    // Obtener la lista de sesiones ordenadas por fecha
+    var sesiones = Model.Sesiones?.OrderBy(s => s.Fecha).ToList() ?? new List<Sesion>();
 }
 
-<h1>Sesiones de @ViewBag.CursoNombre (@ViewBag.CursoId)</h1>
-
-<h2>Crear Nueva Sesión</h2>
-<form asp-action="CrearSesion" method="post" class="row g-3 mb-4">
-    <input type="hidden" name="cursoId" value="@ViewBag.CursoId" />
-    <div class="col-md-3">
-        <label for="fechaSesion" class="form-label">Fecha:</label>
-        <input type="date" name="fechaSesion" id="fechaSesion" class="form-control" required />
-    </div>
-    <div class="col-md-6">
-        <label for="tema" class="form-label">Tema:</label>
-        <input type="text" name="tema" id="tema" class="form-control" placeholder="Ej: Introducción a C# y variables" />
-    </div>
-    <div class="col-md-3 d-flex align-items-end">
-        <button type="submit" class="btn btn-success w-100">Crear Sesión</button>
-    </div>
-</form>
+<h1>Gestión de Sesiones del Curso: @Model.Nombre</h1>
+<p>Código: @Model.Codigo</p>
 
 <hr />
 
-<h2>Sesiones Registradas</h2>
-@if (Model.Any())
+@* Sección para Crear una Nueva Sesión *@
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h3>Crear Nueva Sesión</h3>
+        @* La acción 'CrearSesion' debe estar implementada en CoordinadorController *@
+        <form asp-controller="Coordinador" asp-action="CrearSesion" method="post">
+            <input type="hidden" name="cursoId" value="@Model.Id" />
+            
+            <div class="form-group">
+                <label for="Fecha" class="control-label">Fecha y Hora</label>
+                @* Usamos el input type="datetime-local" para facilitar la entrada, y el nombre es "Fecha" *@
+                <input name="Fecha" type="datetime-local" class="form-control" required />
+            </div>
+            
+            <div class="form-group">
+                <label for="Tema" class="control-label">Tema de la Sesión</label>
+                <input name="Tema" type="text" class="form-control" required />
+            </div>
+            
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-success">Crear Sesión</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+@* Sección de Listado de Sesiones Existentes *@
+<h3>Sesiones Programadas (@sesiones.Count)</h3>
+
+@if (sesiones.Any())
 {
-    <table class="table table-hover">
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th>Fecha</th>
+                <th>Fecha y Hora</th>
                 <th>Tema</th>
-                <th>Estudiantes Registrados</th>
+                <th>Matriculados</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var sesion in sesiones)
             {
                 <tr>
-                    <td>@item.FechaSesion.ToShortDateString()</td>
-                    <td>@item.Tema</td>
-                    <td>@(item.Asistencias?.Count ?? 0)</td>
+                    @* Corregido para usar .Fecha *@
+                    <td>@sesion.Fecha.ToString("dd-MM-yyyy HH:mm")</td> 
+                    <td>@sesion.Tema</td>
+                    <td>@(Model.Matriculas?.Count ?? 0)</td>
                     <td>
-                        <a asp-action="TomarAsistencia" asp-route-id="@ViewBag.CursoId" asp-route-sesionId="@item.Id" class="btn btn-sm btn-primary">
-                            Tomar Asistencia
-                        </a>
+                        @* Botón Tomar Asistencia *@
+                        <a asp-controller="Coordinador" asp-action="TomarAsistencia" asp-route-sesionId="@sesion.Id" class="btn btn-sm btn-info">Tomar Asistencia</a>
+                        
+                        @* Formulario para Eliminar Sesión *@
+                        <form asp-controller="Coordinador" asp-action="EliminarSesion" method="post" class="d-inline"
+                              onsubmit="return confirm('¿Está seguro de eliminar esta sesión? Esta acción es irreversible.');">
+                            <input type="hidden" name="sesionId" value="@sesion.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
-            }
+            } @* <-- El cierre del foreach es clave para el balance de <tr> *@
         </tbody>
     </table>
 }
 else
 {
-    <div class="alert alert-warning">No hay sesiones registradas para este curso.</div>
+    <div class="alert alert-warning">No hay sesiones programadas para este curso.</div>
 }
+
+<div class="mt-4">
+    <a asp-controller="Coordinador" asp-action="Index" class="btn btn-secondary">Volver al Panel de Coordinador</a>
+</div>

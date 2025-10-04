@@ -1,27 +1,28 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PARCIAL_programaci_n.Data; // <-- ¡CRUCIAL! Para ver ApplicationUser
-
+using PARCIAL_programaci_n.Data; 
 namespace PARCIAL_programaci_n.Models
 {
     public class Asistencia
     {
-        // Clave Compuesta: SesionId + UsuarioId
-        [Display(Name = "Sesión")]
+        // Clave Primaria compuesta o simple, dependiendo de tu diseño
+        [Key]
+        public int Id { get; set; }
+
+        // Indica si el estudiante estuvo presente (P4)
+        [Display(Name = "Presente")]
+        public bool Presente { get; set; } // <--- ¡Asegúrate de que esta línea exista!
+
+        // Claves Foráneas
+        
+        [Required]
         public int SesionId { get; set; }
+        [ForeignKey("SesionId")]
         public Sesion? Sesion { get; set; }
 
-        [Display(Name = "Estudiante")]
+        [Required]
         public string UsuarioId { get; set; } = string.Empty;
-        public ApplicationUser? Usuario { get; set; } // Enlace al usuario
-
-        [Required]
-        [Display(Name = "Asistió")]
-        public bool Asistio { get; set; } = true;
-
-        [Required]
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Fecha de Registro")]
-        public DateTime FechaRegistro { get; set; }
+        [ForeignKey("UsuarioId")]
+        public ApplicationUser? Usuario { get; set; }
     }
 }
