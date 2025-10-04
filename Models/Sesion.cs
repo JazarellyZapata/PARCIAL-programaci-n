@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PARCIAL_programaci_n.Models; // Necesario para que se reconozca 'Curso'
 
 namespace PARCIAL_programaci_n.Models
 {

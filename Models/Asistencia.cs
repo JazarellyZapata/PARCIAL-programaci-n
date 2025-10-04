@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PARCIAL_programaci_n.Data; // Necesario para ApplicationUser
+using PARCIAL_programaci_n.Data; // Necesario para que se reconozca 'ApplicationUser'
 
 namespace PARCIAL_programaci_n.Models
 {

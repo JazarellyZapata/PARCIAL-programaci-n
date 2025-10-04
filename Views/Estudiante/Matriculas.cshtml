@@ -1,0 +1,60 @@
+@model IEnumerable<PARCIAL_programaci_n.ViewModels.MatriculaViewModel>
+
+@{
+    ViewData["Title"] = "Mis Matrículas y Créditos";
+}
+
+<h1>Mis Matrículas y Créditos</h1>
+<p>
+    Aquí puedes ver los cursos en los que te has matriculado, tu asistencia y los créditos obtenidos.
+</p>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Codigo)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Creditos)</th>
+            <th>Sesiones Totales</th>
+            <th>Asistencias</th>
+            <th>% Asistencia</th>
+            <th>Créditos Obtenidos</th>
+            <th>Matriculado Desde</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
+            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+            <td>@Html.DisplayFor(modelItem => item.Creditos)</td>
+            
+            {{-- Datos de la Pregunta 4 --}}
+            <td>@Html.DisplayFor(modelItem => item.SesionesTotales)</td>
+            <td>@Html.DisplayFor(modelItem => item.Asistencias)</td>
+            <td>@Html.DisplayFor(modelItem => item.PorcentajeAsistencia)%</td>
+            <td>
+                @if (item.CreditosObtenidos)
+                {
+                    <span class="badge bg-success">SÍ</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">NO</span>
+                }
+            </td>
+            {{-- Fin Datos de la Pregunta 4 --}}
+            
+            <td>@Html.DisplayFor(modelItem => item.FechaMatricula)</td>
+            <td>
+                <form asp-controller="Estudiante" asp-action="CancelarMatricula" asp-route-id="@item.CursoId" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro de que desea cancelar la matrícula de @item.Codigo?')">
+                        Cancelar Matrícula
+                    </button>
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

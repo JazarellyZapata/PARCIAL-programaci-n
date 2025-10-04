@@ -1,4 +1,7 @@
-// ... otros usings
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore; // Para IdentityDbContext
+using Microsoft.EntityFrameworkCore;                     // Para DbSet, ModelBuilder, etc.
+using PARCIAL_programaci_n.Models;                   // Para Curso, Matricula, Sesion, Asistencia
+using PARCIAL_programaci_n.Data;                     // Para ApplicationUser (Tu propio modelo)
 
 namespace PARCIAL_programaci_n.Data 
 {
