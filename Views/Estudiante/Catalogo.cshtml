@@ -1,0 +1,59 @@
+@model IEnumerable<PARCIAL_programaci_n.Models.Curso>
+
+@{
+    ViewData["Title"] = "Catálogo de Cursos";
+}
+
+<h1 class="text-center text-primary mb-4">Catálogo de Cursos Disponibles</h1>
+<p class="text-center">Selecciona un curso para matricularte.</p>
+
+<hr />
+
+@* Muestra mensajes de éxito/error *@
+@if (TempData["StatusMessage"] != null)
+{
+    var cssClass = TempData["StatusMessage"].ToString()!.Contains("Éxito") ? "alert-success" : "alert-danger";
+    <div class="alert @cssClass" role="alert">
+        @TempData["StatusMessage"]
+    </div>
+}
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Codigo)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Creditos)</th>
+            <th>Horario</th>
+            <th>Cupo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Creditos)</td>
+                <td>@item.HorarioInicio.ToString("hh\\:mm") - @item.HorarioFin.ToString("hh\\:mm")</td>
+                <td>@item.CupoMaximo</td>
+                <td>
+                    <form asp-action="Matricularse" asp-route-id="@item.Id" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-success">
+                            Matricularse
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">
+        No hay cursos activos disponibles para matricularse.
+    </div>
+}

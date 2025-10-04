@@ -1,0 +1,55 @@
+@model IEnumerable<PARCIAL_programaci_n.Models.Matricula>
+
+@{
+    ViewData["Title"] = "Mis Matrículas";
+}
+
+<h1 class="text-center text-primary mb-4">Cursos Matriculados</h1>
+<p class="text-center">Aquí puedes ver tus cursos y cancelar la matrícula si lo deseas.</p>
+
+<hr />
+
+@* Muestra mensajes de éxito/error *@
+@if (TempData["StatusMessage"] != null)
+{
+    var cssClass = TempData["StatusMessage"].ToString()!.Contains("Éxito") || TempData["StatusMessage"].ToString()!.Contains("cancelada") ? "alert-success" : "alert-danger";
+    <div class="alert @cssClass" role="alert">
+        @TempData["StatusMessage"]
+    </div>
+}
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Curso</th>
+            <th>@Html.DisplayNameFor(model => model.FechaMatricula)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Curso?.Codigo</td>
+                <td>@item.Curso?.Nombre</td>
+                <td>@Html.DisplayFor(modelItem => item.FechaMatricula)</td>
+                <td>
+                    <form asp-action="CancelarMatricula" asp-route-id="@item.CursoId" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas cancelar la matrícula en este curso?');">
+                            Cancelar Matrícula
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">
+        Aún no estás matriculado en ningún curso. Visita el <a asp-action="Catalogo">Catálogo de Cursos</a>.
+    </div>
+}
