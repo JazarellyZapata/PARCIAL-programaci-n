@@ -1,0 +1,59 @@
+@model PARCIAL_programaci_n.Models.Curso
+
+@{
+    ViewData["Title"] = "Detalles del Curso";
+}
+
+<h1>Detalles del Curso: @Model.Nombre</h1>
+
+<div>
+    <h4>Información General</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Codigo)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Codigo)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Creditos)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Creditos)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CupoMaximo)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.CupoMaximo)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Activo)</dt>
+        <dd class="col-sm-9">@(Model.Activo ? "Activo" : "Inactivo")</dd>
+    </dl>
+</div>
+
+<div class="mt-4">
+    <h4>Estudiantes Matriculados (@(Model.Matriculas?.Count ?? 0))</h4>
+    <hr />
+    @if (Model.Matriculas != null && Model.Matriculas.Any())
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre del Estudiante</th>
+                    <th>Fecha de Matrícula</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var matricula in Model.Matriculas.OrderBy(m => m.Usuario!.NombreCompleto))
+                {
+                    <tr>
+                        <td>@matricula.Usuario!.NombreCompleto</td>
+                        <td>@matricula.FechaMatricula.ToShortDateString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No hay estudiantes matriculados en este curso.</p>
+    }
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Editar</a> |
+    <a asp-action="Index" class="btn btn-secondary">Volver al Listado</a>
+</div>

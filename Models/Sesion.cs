@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PARCIAL_programaci_n.Data; // RESUELVE ApplicationUser
+using PARCIAL_programaci_n.Models; // Añadir por si acaso, aunque esté en el mismo namespace.
 
-namespace PARCIAL_programaci_n.Models 
+namespace PARCIAL_programaci_n.Models
 {
     public class Sesion
     {

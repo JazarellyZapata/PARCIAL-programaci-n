@@ -1,0 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using PARCIAL_programaci_n.Data; 
+
+namespace PARCIAL_programaci_n.Data
+{
+    // Clase usada SOLAMENTE por la herramienta 'dotnet ef'
+    public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    {
+        public ApplicationDbContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            
+            // Especifica aquí la cadena de conexión de SQLite que usas en Program.cs
+            optionsBuilder.UseSqlite("Data Source=app.db"); 
+
+            // Retorna la nueva instancia de tu DbContext
+            return new ApplicationDbContext(optionsBuilder.Options);
+        }
+    }
+}

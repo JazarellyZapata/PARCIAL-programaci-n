@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore; // RESUELVE IdentityDbContext
-using Microsoft.EntityFrameworkCore;                     // RESUELVE DbSet, ModelBuilder, DbContextOptions
-using PARCIAL_programaci_n.Models;                   // RESUELVE Curso, Matricula, Sesion, Asistencia
-using PARCIAL_programaci_n.Data;                     // RESUELVE ApplicationUser
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using PARCIAL_programaci_n.Models; // <-- ¡CRUCIAL! Para ver Curso, Matricula, Sesion, Asistencia
+using PARCIAL_programaci_n.Data; // <-- ¡CRUCIAL! Para ver ApplicationUser
 
 namespace PARCIAL_programaci_n.Data 
 {
