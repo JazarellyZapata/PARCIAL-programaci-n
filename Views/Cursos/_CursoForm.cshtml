@@ -1,0 +1,59 @@
+@model PARCIAL_PROGRAMACI_N.Models.Curso
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group mb-3">
+            <label asp-for="Codigo" class="control-label"></label>
+            <input asp-for="Codigo" class="form-control" />
+            <span asp-validation-for="Codigo" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group mb-3">
+            <label asp-for="Nombre" class="control-label"></label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label asp-for="Creditos" class="control-label"></label>
+            <input asp-for="Creditos" class="form-control" />
+            <span asp-validation-for="Creditos" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label asp-for="CupoMaximo" class="control-label"></label>
+            <input asp-for="CupoMaximo" class="form-control" />
+            <span asp-validation-for="CupoMaximo" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group form-check mt-4 pt-2">
+            <input class="form-check-input" asp-for="Activo" />
+            <label class="form-check-label" asp-for="Activo"></label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group mb-3">
+            <label asp-for="HorarioInicio" class="control-label"></label>
+            @* Usamos type="time" para el TimeOnly *@
+            <input asp-for="HorarioInicio" type="time" class="form-control" /> 
+            <span asp-validation-for="HorarioInicio" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group mb-3">
+            <label asp-for="HorarioFin" class="control-label"></label>
+            <input asp-for="HorarioFin" type="time" class="form-control" />
+            <span asp-validation-for="HorarioFin" class="text-danger"></span>
+        </div>
+    </div>
+</div>
