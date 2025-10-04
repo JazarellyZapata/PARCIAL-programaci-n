@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PARCIAL_programaci_n.Data;
-using PARCIAL_programaci_n.Models;
-using System.Security.Claims; // Necesario para obtener el ID del usuario
+using Microsoft.EntityFrameworkCore; // <-- Soluciona 'EntityFrameworkCore' no existe
+using PARCIAL_programaci_n.Models;// <-- Asegúrate de que este namespace es correcto (Contiene ApplicationDbContext y ApplicationUser)
+using PARCIAL_programaci_n.Data; // <--- DEBE coincidir con el namespace de la carpeta Data
+using System.Security.Claims;
+
 
 namespace PARCIAL_programaci_n.Controllers
 {
