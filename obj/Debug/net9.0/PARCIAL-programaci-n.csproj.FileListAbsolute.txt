@@ -1,0 +1,11 @@
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\PARCIAL-programaci-n.csproj.AssemblyReference.cache
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\PARCIAL-programaci-n.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\PARCIAL-programaci-n.AssemblyInfoInputs.cache
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\PARCIAL-programaci-n.AssemblyInfo.cs
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\PARCIAL-programaci-n.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\PARCIAL-programaci-n.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\PARCIAL-programaci-n.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\PARCIAL-programaci-n.RazorAssemblyInfo.cache
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\PARCIAL-programaci-n.RazorAssemblyInfo.cs
+C:\Users\User\Documents\Parcial_zapata\PARCIAL-programaci-n\obj\Debug\net9.0\PARCIAL-programaci-n.sourcelink.json

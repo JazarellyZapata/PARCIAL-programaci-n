@@ -1,0 +1,59 @@
+@model IEnumerable<PARCIAL_programaci_n.Models.ViewModels.CursoCatalogoViewModel>
+
+@{
+    ViewData["Title"] = "Catálogo de Cursos";
+}
+
+<h1>Catálogo de Cursos Disponibles</h1>
+<p>Inscríbete en los cursos de programación disponibles.</p>
+
+<hr />
+
+@* Mostrar mensajes de éxito/error/advertencia * @
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["WarningMessage"] != null)
+{
+    <div class="alert alert-warning">@TempData["WarningMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre del Curso</th>
+            <th>Descripción</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Curso.Codigo</td>
+                <td>@item.Curso.Nombre</td>
+                <td>@item.Curso.Descripcion</td>
+                <td>
+                    @if (item.EstaMatriculado)
+                    {
+                        <span class="badge bg-success">Matriculado</span>
+                    }
+                    else
+                    {
+                        @* Formulario para matricularse: solo se activa si no está matriculado *@
+                        <form asp-controller="Estudiante" asp-action="Matricularse" method="post">
+                            <input type="hidden" name="cursoId" value="@item.Curso.Id" />
+                            <button type="submit" class="btn btn-sm btn-primary">Matricularse</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

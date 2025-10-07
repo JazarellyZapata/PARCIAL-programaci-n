@@ -1,0 +1,39 @@
+using PARCIAL_programaci_n.Models;
+using System.ComponentModel.DataAnnotations;
+
+namespace PARCIAL_programaci_n.Models.ViewModels
+{
+    // 1. Modelo para el detalle de la asistencia en una sesión
+    public class SesionDetalleViewModel
+    {
+        public int SesionId { get; set; }
+        
+        [Display(Name = "Fecha")]
+        public DateTime Fecha { get; set; }
+        
+        [Display(Name = "Tema")]
+        public string Tema { get; set; } = string.Empty;
+        
+        [Display(Name = "Asistencia")]
+        // True si el estudiante tiene un registro de asistencia = True para esta sesión
+        public bool Asistio { get; set; }
+    }
+
+    // 2. Modelo principal para el listado de cursos matriculados
+    public class MatriculaDetalleViewModel
+    {
+        public int CursoId { get; set; }
+        
+        [Display(Name = "Curso")]
+        public string NombreCurso { get; set; } = string.Empty;
+        
+        [Display(Name = "Descripción")]
+        public string DescripcionCurso { get; set; } = string.Empty;
+        
+        // Lista de todas las sesiones dictadas para este curso, incluyendo la asistencia
+        public List<SesionDetalleViewModel> Sesiones { get; set; } = new List<SesionDetalleViewModel>();
+
+        public int SesionesTotales => Sesiones.Count;
+        public int AsistenciasContadas => Sesiones.Count(s => s.Asistio);
+    }
+}
